@@ -7,14 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37178BD42888AFB300B7B4D0 /* GhostDrawingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37178BD32888AFB300B7B4D0 /* GhostDrawingViewModel.swift */; };
+		37178BD62888B16100B7B4D0 /* ColorSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37178BD52888B16100B7B4D0 /* ColorSelectionButton.swift */; };
+		37178BD82888CA2800B7B4D0 /* DrawingBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37178BD72888CA2800B7B4D0 /* DrawingBoardView.swift */; };
+		37178BDA2888D6CF00B7B4D0 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37178BD92888D6CF00B7B4D0 /* TestView.swift */; };
+		37545ED62889FC9800D64642 /* AllColorsDrawingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37545ED52889FC9800D64642 /* AllColorsDrawingBoard.swift */; };
 		3790B4CD2887FFF100737BCA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4CC2887FFF100737BCA /* Tests_iOS.swift */; };
 		3790B4CF2887FFF100737BCA /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4CE2887FFF100737BCA /* Tests_iOSLaunchTests.swift */; };
 		3790B4D92887FFF100737BCA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4D82887FFF100737BCA /* Tests_macOS.swift */; };
 		3790B4DB2887FFF100737BCA /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4DA2887FFF100737BCA /* Tests_macOSLaunchTests.swift */; };
 		3790B4DC2887FFF100737BCA /* GhostDrawingsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4B42887FFEF00737BCA /* GhostDrawingsApp.swift */; };
 		3790B4DD2887FFF100737BCA /* GhostDrawingsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4B42887FFEF00737BCA /* GhostDrawingsApp.swift */; };
-		3790B4DE2887FFF100737BCA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4B52887FFEF00737BCA /* ContentView.swift */; };
-		3790B4DF2887FFF100737BCA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4B52887FFEF00737BCA /* ContentView.swift */; };
+		3790B4DE2887FFF100737BCA /* ColorButtonsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4B52887FFEF00737BCA /* ColorButtonsMainView.swift */; };
+		3790B4DF2887FFF100737BCA /* ColorButtonsMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4B52887FFEF00737BCA /* ColorButtonsMainView.swift */; };
 		3790B4E02887FFF100737BCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3790B4B62887FFF100737BCA /* Assets.xcassets */; };
 		3790B4E12887FFF100737BCA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3790B4B62887FFF100737BCA /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -37,8 +42,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		37178BD32888AFB300B7B4D0 /* GhostDrawingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostDrawingViewModel.swift; sourceTree = "<group>"; };
+		37178BD52888B16100B7B4D0 /* ColorSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectionButton.swift; sourceTree = "<group>"; };
+		37178BD72888CA2800B7B4D0 /* DrawingBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingBoardView.swift; sourceTree = "<group>"; };
+		37178BD92888D6CF00B7B4D0 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		37545ED52889FC9800D64642 /* AllColorsDrawingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllColorsDrawingBoard.swift; sourceTree = "<group>"; };
 		3790B4B42887FFEF00737BCA /* GhostDrawingsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostDrawingsApp.swift; sourceTree = "<group>"; };
-		3790B4B52887FFEF00737BCA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3790B4B52887FFEF00737BCA /* ColorButtonsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButtonsMainView.swift; sourceTree = "<group>"; };
 		3790B4B62887FFF100737BCA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3790B4BB2887FFF100737BCA /* GhostDrawings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GhostDrawings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3790B4C12887FFF100737BCA /* GhostDrawings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GhostDrawings.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +93,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		37178BD02888AF5800B7B4D0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3790B4B52887FFEF00737BCA /* ColorButtonsMainView.swift */,
+				37178BD52888B16100B7B4D0 /* ColorSelectionButton.swift */,
+				37178BD72888CA2800B7B4D0 /* DrawingBoardView.swift */,
+				37178BD92888D6CF00B7B4D0 /* TestView.swift */,
+				37545ED52889FC9800D64642 /* AllColorsDrawingBoard.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		37178BD12888AF6400B7B4D0 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				3790B4B42887FFEF00737BCA /* GhostDrawingsApp.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		37178BD22888AF9600B7B4D0 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				37178BD32888AFB300B7B4D0 /* GhostDrawingViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
 		3790B4AE2887FFEF00737BCA = {
 			isa = PBXGroup;
 			children = (
@@ -97,8 +135,9 @@
 		3790B4B32887FFEF00737BCA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				3790B4B42887FFEF00737BCA /* GhostDrawingsApp.swift */,
-				3790B4B52887FFEF00737BCA /* ContentView.swift */,
+				37178BD12888AF6400B7B4D0 /* Main */,
+				37178BD02888AF5800B7B4D0 /* Views */,
+				37178BD22888AF9600B7B4D0 /* View Models */,
 				3790B4B62887FFF100737BCA /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -299,7 +338,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3790B4DE2887FFF100737BCA /* ContentView.swift in Sources */,
+				37545ED62889FC9800D64642 /* AllColorsDrawingBoard.swift in Sources */,
+				37178BDA2888D6CF00B7B4D0 /* TestView.swift in Sources */,
+				37178BD42888AFB300B7B4D0 /* GhostDrawingViewModel.swift in Sources */,
+				3790B4DE2887FFF100737BCA /* ColorButtonsMainView.swift in Sources */,
+				37178BD82888CA2800B7B4D0 /* DrawingBoardView.swift in Sources */,
+				37178BD62888B16100B7B4D0 /* ColorSelectionButton.swift in Sources */,
 				3790B4DC2887FFF100737BCA /* GhostDrawingsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -308,7 +352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3790B4DF2887FFF100737BCA /* ContentView.swift in Sources */,
+				3790B4DF2887FFF100737BCA /* ColorButtonsMainView.swift in Sources */,
 				3790B4DD2887FFF100737BCA /* GhostDrawingsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

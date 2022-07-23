@@ -11,7 +11,7 @@ import SwiftUI
 struct GhostDrawingsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ColorButtonsMainView()
         }
     }
 }
