@@ -21,6 +21,7 @@ struct DrawingBoardView: View {
                 for drawing in drawings {
                     var path = Path()
                     path.addLines(drawing.points)
+                    // TODO: Replace lineWidth with ghostDrawingVM.currentLineWidth
                     context.stroke(path, with: .color(drawing.color), lineWidth: currentDrawing.lineWidth)
                 }
             }
@@ -51,7 +52,11 @@ struct DrawingBoardView: View {
                                         self.drawings.append(currentDrawing)
                                     }
                                 default:
-                                    break
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                        currentDrawing.color = ghostDrawingVM.currentColor
+                                        currentDrawing.points.append(newPoint)
+                                        self.drawings.append(currentDrawing)
+                                    }
                             }
                         } else {
                             // Timer disabled; create path immediately.

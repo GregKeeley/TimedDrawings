@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct ColorSelector: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel = GhostDrawingViewModel()
     
     var body: some View {
         HStack {
-            ColorSelectionButton(color: Color.red, currentColor: $viewModel.currentColor)
+            ColorSelectionButton(color: Color.red, lineWidth: 3.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
                 .padding(.leading)
-            ColorSelectionButton(color: Color.blue, currentColor: $viewModel.currentColor)
+            ColorSelectionButton(color: Color.blue, lineWidth: 3.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
                 .padding(.leading)
-            ColorSelectionButton(color: Color.green, currentColor: $viewModel.currentColor)
+            ColorSelectionButton(color: Color.green, lineWidth: 3.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
                 .padding([.leading, .trailing])
-            ColorSelectionButton(color: Color.clear, currentColor: $viewModel.currentColor)
+            colorScheme == .dark ? ColorSelectionButton(color: Color.black, lineWidth: 10.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
+                .padding(.trailing) : ColorSelectionButton(color: Color.white, lineWidth: 10.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
                 .padding(.trailing)
         }
         
