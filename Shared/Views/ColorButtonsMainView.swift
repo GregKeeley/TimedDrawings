@@ -10,11 +10,11 @@ import SwiftUI
 struct ColorButtonsMainView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject var ghostDrawingVM = GhostDrawingViewModel()
-    @State var currentDrawing = Drawing()
+    
     var body: some View {
         ZStack {
             colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
-            DrawingBoardView(currentDrawing: currentDrawing, drawings: [Drawing](), ghostDrawingVM: ghostDrawingVM)
+            DrawingBoardView(ghostDrawingVM: ghostDrawingVM)
             ZStack {
                 VStack {
                     HStack {
