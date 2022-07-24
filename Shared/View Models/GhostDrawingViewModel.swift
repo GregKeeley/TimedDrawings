@@ -14,12 +14,13 @@ class GhostDrawingViewModel: ObservableObject {
     @Published public var currentBlueDrawing: Drawing = Drawing()
     @Published public var currentGreenDrawing: Drawing = Drawing()
     @Published public var currentEraserDrawing: Drawing = Drawing()
-//    @Published public var currentDrawing: Drawing = Drawing()
+    @Published public var currentDrawing: Drawing = Drawing()
     // Collection of drawings for each color.
     @Published public var redDrawings: [Drawing] = [Drawing]()
     @Published public var blueDrawings: [Drawing] = [Drawing]()
     @Published public var greenDrawings: [Drawing] = [Drawing]()
     @Published public var eraserDrawings: [Drawing] = [Drawing]()
+    
     
     @Published public var allDrawings: [Drawing] = [Drawing]()
     @Published public var currentColor: Color = Color.blue

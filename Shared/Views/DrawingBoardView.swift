@@ -15,29 +15,16 @@ struct DrawingBoardView: View {
     var body: some View {
         VStack {
             Canvas { context, _ in
-                for drawing in ghostDrawingVM.redDrawings {
+                for drawing in ghostDrawingVM.allDrawings {
                     var path = Path()
                     path.addLines(drawing.points)
-                    // TODO: Replace lineWidth with ghostDrawingVM.currentLineWidth
-                    context.stroke(path, with: .color(Color.red), lineWidth: drawing.lineWidth)
-                }
-                for drawing in ghostDrawingVM.blueDrawings {
-                    var path = Path()
-                    path.addLines(drawing.points)
-                    // TODO: Replace lineWidth with ghostDrawingVM.currentLineWidth
-                    context.stroke(path, with: .color(Color.blue), lineWidth: drawing.lineWidth)
-                }
-                for drawing in ghostDrawingVM.greenDrawings {
-                    var path = Path()
-                    path.addLines(drawing.points)
-                    // TODO: Replace lineWidth with ghostDrawingVM.currentLineWidth
-                    context.stroke(path, with: .color(Color.green), lineWidth: drawing.lineWidth)
-                }
-                for drawing in ghostDrawingVM.eraserDrawings {
-                    var path = Path()
-                    path.addLines(drawing.points)
-                    // TODO: Replace lineWidth with ghostDrawingVM.currentLineWidth
-                    context.stroke(path, with: .color((ghostDrawingVM.colorScheme == .dark ? .white : .black)), lineWidth: 20.0)
+                    if drawing.color == .clear {
+                        context.blendMode = .clear
+                        context.stroke(path, with: .color(.clear), lineWidth: drawing.lineWidth)
+                    } else {
+                        context.blendMode = .normal
+                        context.stroke(path, with: .color(drawing.color), lineWidth: drawing.lineWidth)
+                    }
                 }
             }
             .gesture(
@@ -50,44 +37,41 @@ struct DrawingBoardView: View {
                             case .red:
                                 DispatchQueue.main.asyncAfter(deadline: .now() + (ghostDrawingVM.timerIsActive ? 1.0 : 0.0)) {
                                     ghostDrawingVM.currentRedDrawing.points.append(newPoint)
-                                    ghostDrawingVM.redDrawings.append(ghostDrawingVM.currentRedDrawing)
+                                    ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentDrawing)
                                 }
                             case .blue:
                                 DispatchQueue.main.asyncAfter(deadline: .now() + (ghostDrawingVM.timerIsActive ? 3.0 : 0.0)) {
                                     ghostDrawingVM.currentBlueDrawing.points.append(newPoint)
-                                    ghostDrawingVM.blueDrawings.append(ghostDrawingVM.currentBlueDrawing)
+                                    ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentDrawing)
                                 }
                             case .green:
                                 DispatchQueue.main.asyncAfter(deadline: .now() + (ghostDrawingVM.timerIsActive ? 5.0 : 0.0)) {
                                     ghostDrawingVM.currentGreenDrawing.points.append(newPoint)
-                                    ghostDrawingVM.greenDrawings.append(ghostDrawingVM.currentGreenDrawing)
+                                    ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentGreenDrawing)
                                 }
                             default:
                                 // Eraser, no delay.
                                 ghostDrawingVM.currentEraserDrawing.points.append(newPoint)
-                                ghostDrawingVM.eraserDrawings.append(ghostDrawingVM.currentEraserDrawing)
+                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentEraserDrawing)
                         }
+                        
                     })
                     .onEnded({ value in
                         // Drag gesture ended; Add current drawing to collection; Reinitialize the next drawing.
                         switch ghostDrawingVM.currentColor {
                             case .red:
-                                ghostDrawingVM.redDrawings.append(ghostDrawingVM.currentRedDrawing)
-                                //                                self.drawings.append(currentDrawing)
+                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentRedDrawing)
                                 ghostDrawingVM.currentRedDrawing = Drawing(points: [], color: Color.red, lineWidth: 3.0)
                             case .blue:
-                                ghostDrawingVM.blueDrawings.append(ghostDrawingVM.currentBlueDrawing)
-                                //                                self.drawings.append(currentDrawing)
+                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentBlueDrawing)
                                 ghostDrawingVM.currentBlueDrawing = Drawing(points: [], color: Color.blue, lineWidth: 3.0)
                             case .green:
-                                ghostDrawingVM.greenDrawings.append(ghostDrawingVM.currentGreenDrawing)
-                                //                                self.drawings.append(currentDrawing)
+                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentGreenDrawing)
                                 ghostDrawingVM.currentGreenDrawing = Drawing(points: [], color: Color.green, lineWidth: 3.0)
                             default:
                                 // Eraser.
-                                ghostDrawingVM.eraserDrawings.append(ghostDrawingVM.currentEraserDrawing)
-                                //                                self.drawings.append(currentDrawing)
-                                ghostDrawingVM.currentEraserDrawing = Drawing(points: [], color: ghostDrawingVM.colorScheme == .dark ? .white : .black, lineWidth: 20.0)
+                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentEraserDrawing)
+                                ghostDrawingVM.currentEraserDrawing = Drawing(points: [], color: Color.clear, lineWidth: 20.0)
                         }
                     })
             )

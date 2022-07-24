@@ -19,7 +19,7 @@ struct ColorSelector: View {
                 .padding(.leading)
             ColorSelectionButton(color: Color.green, lineWidth: 4.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
                 .padding([.leading, .trailing])
-            ColorSelectionButton(color: colorScheme == .dark ? Color.black : Color.white, lineWidth: 20.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
+            ColorSelectionButton(color: .clear, lineWidth: 20.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
                 .padding(.trailing)
         }
         
