@@ -19,7 +19,7 @@ class GhostDrawingViewModel: ObservableObject {
     @Published public var greenDrawings: [Drawing] = [Drawing]()
     @Published public var allDrawings: [Drawing] = [Drawing]()
     @Published public var currentColor: Color = Color.blue
-    
+    @Published public var currentLineWidth: CGFloat = 3.0
     // TODO: Re-enable the timer  by default.
     @Published public var timerIsActive: Bool = false
     /// Adds the points to the Drawing and Path. Path is mutated in place.

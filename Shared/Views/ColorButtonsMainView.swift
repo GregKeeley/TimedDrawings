@@ -29,15 +29,10 @@ struct ColorButtonsMainView: View {
                         Spacer()
                     }
                     .padding(.vertical)
+                    
                     Spacer()
-                    HStack(alignment: .center,
-                           spacing: 40,
-                           content: {
-                        ColorSelectionButton(color: Color.red, currentColor: $ghostDrawingVM.currentColor)
-                        ColorSelectionButton(color: Color.blue, currentColor: $ghostDrawingVM.currentColor)
-                        ColorSelectionButton(color: Color.green, currentColor: $ghostDrawingVM.currentColor)
-                    })
-                    .padding()
+                    ColorSelector(viewModel: ghostDrawingVM)
+                        .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.width * 0.2, alignment: .center)
                 }
             }
         }
