@@ -22,7 +22,7 @@ struct DrawingBoardView: View {
                     var path = Path()
                     path.addLines(drawing.points)
                     // TODO: Replace lineWidth with ghostDrawingVM.currentLineWidth
-                    context.stroke(path, with: .color(drawing.color), lineWidth: currentDrawing.lineWidth)
+                    context.stroke(path, with: .color(drawing.color), lineWidth: drawing.lineWidth)
                 }
             }
             .gesture(
@@ -35,31 +35,35 @@ struct DrawingBoardView: View {
                             switch ghostDrawingVM.currentColor {
                                 case .red:
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                        currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
                                         currentDrawing.color = ghostDrawingVM.currentColor
                                         currentDrawing.points.append(newPoint)
                                         self.drawings.append(currentDrawing)
                                     }
                                 case .blue:
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                                        currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
                                         currentDrawing.color = ghostDrawingVM.currentColor
                                         currentDrawing.points.append(newPoint)
                                         self.drawings.append(currentDrawing)
                                     }
                                 case .green:
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                                        currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
                                         currentDrawing.color = ghostDrawingVM.currentColor
                                         currentDrawing.points.append(newPoint)
                                         self.drawings.append(currentDrawing)
                                     }
                                 default:
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                        currentDrawing.color = ghostDrawingVM.currentColor
-                                        currentDrawing.points.append(newPoint)
-                                        self.drawings.append(currentDrawing)
-                                    }
+                                    // Eraser, no delay.
+                                    currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
+                                    currentDrawing.color = ghostDrawingVM.currentColor
+                                    currentDrawing.points.append(newPoint)
+                                    self.drawings.append(currentDrawing)
                             }
                         } else {
-                            // Timer disabled; create path immediately.
+                            // All Colors, no delay.
+                            currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
                             currentDrawing.color = ghostDrawingVM.currentColor
                             currentDrawing.points.append(newPoint)
                             self.drawings.append(currentDrawing)

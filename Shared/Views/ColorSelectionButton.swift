@@ -18,6 +18,7 @@ struct ColorSelectionButton: View {
             Button {
                 currentColor = color
                 currentLineWidth = lineWidth
+                print(lineWidth)
             } label: {
                 ZStack {
                     if color != .black && color != .white {
