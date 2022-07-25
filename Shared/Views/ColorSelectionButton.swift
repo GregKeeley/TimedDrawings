@@ -10,24 +10,21 @@ import SwiftUI
 struct ColorSelectionButton: View {
     /// Sets the color the view; Use this to set the current color.
     @State public var color: Color
-    @State public var lineWidth: CGFloat
-    var deviceSize = UIScreen.main.bounds.size
+    /// Used to set the current color on the view model.
     @Binding public var currentColor: Color
-    @Binding public var currentLineWidth: CGFloat
-    
     /// Opacity value for when a buttons color is currently selected as input.
-    var selectedOpacity = 0.95
+    let selectedOpacity = 0.95
     /// The default opacity for a buttons color; Used when that color has not been selected.
-    var defaultOpacity = 0.4
+    let defaultOpacity = 0.4
     
     var body: some View {
         GeometryReader { geo in
             Button {
                 currentColor = color
-                currentLineWidth = lineWidth
             } label: {
                 ZStack {
                     if color != .clear {
+                        // Regular color button.
                         // Outer circle
                         Circle()
                             .stroke(color, lineWidth: 3.0)
@@ -39,6 +36,7 @@ struct ColorSelectionButton: View {
                             .frame(width: (geo.size.width * 0.7), height: (geo.size.width * 0.7), alignment: .center)
                             .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
                     } else {
+                        // Eraser icon button.
                         Circle()
                             .stroke(.gray, lineWidth: 3.0)
                             .frame(width: (geo.size.width * 0.8), height: (geo.size.width * 0.8), alignment: .center)
@@ -55,10 +53,11 @@ struct ColorSelectionButton: View {
     
 }
 
+
+// MARK: - Previews
 struct ColorSelectionButton_Previews: PreviewProvider {
-    
     static var previews: some View {
-        ColorSelectionButton(color: Color.clear, lineWidth: 3.0, currentColor: .constant(.blue), currentLineWidth: .constant(3.0))
+        ColorSelectionButton(color: Color.red, currentColor: .constant(.red))
             .previewLayout(.sizeThatFits)
     }
 }

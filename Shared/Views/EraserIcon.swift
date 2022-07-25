@@ -9,16 +9,12 @@ import SwiftUI
 
 struct EraserIcon: View {
     
-    var xOffsetMult = -0.2
-    var sizeMult = 0.4
-    
     var body: some View {
         GeometryReader { geo in
             ZStack {
                 Circle()
                     .reverseMask {
                         Group {
-//                            EraserSymbol()
                             VStack {
                                 Image(systemName: "rectangle.roundedtop")
                                     .resizable()
@@ -40,6 +36,8 @@ struct EraserIcon: View {
     
 }
 
+
+// MARK: - Previews
 struct EraserIcon_Previews: PreviewProvider {
     static var previews: some View {
         EraserIcon()

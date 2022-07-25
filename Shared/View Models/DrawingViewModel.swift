@@ -7,46 +7,34 @@
 
 import SwiftUI
 
-class GhostDrawingViewModel: ObservableObject {
+/// The view model to store and track properties needed to create, erase and clear drawings. 
+class DrawingViewModel: ObservableObject {
+    /// Environment object that allows us to check the users color scheme for their device, and make UI changes based on dark or light mode.
     @Environment(\.colorScheme) var colorScheme
     // Current drawing for each color.
     @Published public var currentRedDrawing: Drawing = Drawing(color: .red, lineWidth: 4.0)
     @Published public var currentBlueDrawing: Drawing = Drawing(color: .blue, lineWidth: 4.0)
     @Published public var currentGreenDrawing: Drawing = Drawing(color: .green, lineWidth: 4.0)
     @Published public var currentEraserDrawing: Drawing = Drawing(color: .clear, lineWidth: 20.0)
-    // Collection of drawings for each color.
-    @Published public var redDrawings: [Drawing] = [Drawing]()
-    @Published public var blueDrawings: [Drawing] = [Drawing]()
-    @Published public var greenDrawings: [Drawing] = [Drawing]()
-    @Published public var eraserDrawings: [Drawing] = [Drawing]()
-    
-    
+    /// Stores every drawing, regardless of color.
     @Published public var allDrawings: [Drawing] = [Drawing]()
+    /// Stores the current color selected by the user.
     @Published public var currentColor: Color = Color.blue
-    
+    /// Stores the line width of the line for the drawing.
     @Published public var currentLineWidth: CGFloat = 3.0
-    // TODO: Re-enable the timer  by default.
-    @Published public var timerIsActive: Bool = false
-    
+    /// Determines if the time delay is on. Set to `true` when you want a time delay on the drawings; `false` for no time delay.
+    @Published public var delayIsActive: Bool = false
+    /// Determines if the user has ended the drag gesture. When the time delay is enabled, this is needed to know when to start the timers at the end of the drag gesture.
     var touchEventEnded = false
     
-    /// Adds the points to the Drawing and Path. Path is mutated in place.
-    public func addPathToDrawing(drawing: Drawing, path: inout Path) {
-        let points = drawing.points
-        if points.count > 1 {
-            for i in 0..<points.count-1 {
-                let current = points[i]
-                let next = points[i+1]
-                path.move(to: current)
-                path.addLine(to: next)
-            }
-        }
-    }
-    
+    // MARK: - Public Functions
+    /// Checks the current color; Time delay is enabled; Touch events ended, to start adding the points to the respective color drawing.
+    /// Once the points have been added to the drawing, add the drawing to the main collection. The eraser has no time delay.
+    /// - Parameter point: The new point to the drawing.
     public func addPointToDrawing(point: CGPoint) {
         switch currentColor {
             case .red:
-                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 1.0 : 0.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 1.0 : 0.0, repeats: false) { _ in
                     if self.touchEventEnded {
                         self.currentRedDrawing.points.append(point)
                         self.allDrawings.append(self.currentRedDrawing)
@@ -54,7 +42,7 @@ class GhostDrawingViewModel: ObservableObject {
                 }
                 RunLoop.current.add(timer, forMode: .common)
             case .blue:
-                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 3.0 : 0.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 3.0 : 0.0, repeats: false) { _ in
                     if self.touchEventEnded {
                         self.currentBlueDrawing.points.append(point)
                         self.allDrawings.append(self.currentBlueDrawing)
@@ -62,7 +50,7 @@ class GhostDrawingViewModel: ObservableObject {
                 }
                 RunLoop.current.add(timer, forMode: .common)
             case .green:
-                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 5.0 : 0.0, repeats: false) { _ in
                     if self.touchEventEnded {
                         self.currentGreenDrawing.points.append(point)
                         self.allDrawings.append(self.currentGreenDrawing)
@@ -74,21 +62,21 @@ class GhostDrawingViewModel: ObservableObject {
                 self.allDrawings.append(self.currentEraserDrawing)
         }
     }
-    
+    /// Checks the current color to add the respective drawing to the main collection.
     public func addDrawing() {
         switch currentColor {
             case .red:
-                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 5.0 : 0.0, repeats: false) { _ in
                     self.allDrawings.append(self.currentRedDrawing)
                 }
                 RunLoop.current.add(timer, forMode: .common)
             case .blue:
-                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 5.0 : 0.0, repeats: false) { _ in
                     self.allDrawings.append(self.currentBlueDrawing)
                 }
                 RunLoop.current.add(timer, forMode: .common)
             case .green:
-                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 5.0 : 0.0, repeats: false) { _ in
                     self.allDrawings.append(self.currentGreenDrawing)
                 }
                 RunLoop.current.add(timer, forMode: .common)
@@ -96,28 +84,20 @@ class GhostDrawingViewModel: ObservableObject {
                 self.allDrawings.append(self.currentEraserDrawing)
         }
     }
-    
-    public func resetDrawing() {
+    /// Reinitializes a single drawing dependent on the current color. This is used at the of the drag gesture to make the next drawing ready to add to.
+    public func resetCurrentDrawing() {
         switch currentColor {
             case .red:
-                currentRedDrawing = Drawing(points: [],
-                                            color: .red,
-                                            lineWidth: 4.0)
+                currentRedDrawing = Drawing(color: .red, lineWidth: 4.0)
             case .blue:
-                currentBlueDrawing = Drawing(points: [],
-                                             color: .blue,
-                                             lineWidth: 4.0)
+                currentBlueDrawing = Drawing(color: .blue, lineWidth: 4.0)
             case .green:
-                currentGreenDrawing = Drawing(points: [],
-                                              color: .green,
-                                              lineWidth: 4.0)
+                currentGreenDrawing = Drawing(color: .green, lineWidth: 4.0)
             default:
-                currentEraserDrawing = Drawing(points: [],
-                                               color: .clear,
-                                               lineWidth: 20.0)
+                currentEraserDrawing = Drawing(color: .clear, lineWidth: 20.0)
         }
     }
-    /// Clears everything for a blank canvas.
+    /// Clears all drawings, as well as individual drawings for each color, to create a blank canvas.
     public func clearAllDrawings() {
         allDrawings = [Drawing]()
         currentEraserDrawing = Drawing(color: .clear, lineWidth: 20.0)
@@ -125,12 +105,5 @@ class GhostDrawingViewModel: ObservableObject {
         currentBlueDrawing = Drawing(color: .blue, lineWidth: 4.0)
         currentGreenDrawing = Drawing(color: .green, lineWidth: 4.0)
     }
+    
 }
-
-struct Drawing {
-    var points = [CGPoint]()
-    var color: Color
-    var lineWidth: Double
-}
-
-

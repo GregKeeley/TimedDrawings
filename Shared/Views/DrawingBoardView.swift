@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct DrawingBoardView: View {
-    
     /// View model to track various properties of the drawing.
-    @ObservedObject var ghostDrawingVM: GhostDrawingViewModel
+    @ObservedObject var ghostDrawingVM: DrawingViewModel
     
     var body: some View {
         VStack {
@@ -30,7 +29,7 @@ struct DrawingBoardView: View {
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged({ value in
-                        if ghostDrawingVM.timerIsActive {
+                        if ghostDrawingVM.delayIsActive {
                             ghostDrawingVM.touchEventEnded = false
                         } else {
                             ghostDrawingVM.touchEventEnded = true
@@ -44,20 +43,10 @@ struct DrawingBoardView: View {
                         // Drag gesture ended; Add current drawing to collection; Reinitialize the next drawing.
                         ghostDrawingVM.touchEventEnded = true
                         ghostDrawingVM.addDrawing()
-                        ghostDrawingVM.resetDrawing()
+                        ghostDrawingVM.resetCurrentDrawing()
                     })
             )
         }
     }
     
 }
-
-
-
-//struct DrawingBoardView_Previews: PreviewProvider {
-//    static let drawing = Drawing(points: [CGPoint](), color: Color.red, lineWidth: 3.0)
-//    static let vm = GhostDrawingViewModel()
-//    static var previews: some View {
-//        DrawingBoardView(currentDrawing: drawing, drawings: [Drawing](), ghostDrawingVM: vm)
-//    }
-//}

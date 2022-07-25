@@ -8,22 +8,30 @@
 import SwiftUI
 
 struct ColorButtonsMainView: View {
-    @Environment(\.colorScheme) var colorScheme
-    @ObservedObject var ghostDrawingVM = GhostDrawingViewModel()
+    /// The view model needed for drawings.
+    @ObservedObject var viewModel = DrawingViewModel()
+    /// Determines whether or not to show the alert, to clear all drawings on shake of the device.
     @State var showAlert = false
+    
     var body: some View {
         ZStack {
-            colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
-            DrawingBoardView(ghostDrawingVM: ghostDrawingVM)
+            // Dark mode support.
+            viewModel.colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
+            // Canvas drawing board.
+            DrawingBoardView(ghostDrawingVM: viewModel)
             ZStack {
                 VStack {
                     HStack {
-                        Toggle(isOn: $ghostDrawingVM.timerIsActive) {
-                        }
-                        .frame(width: UIScreen.main.bounds.width * 0.2, height: 40, alignment: .center)
+                        // Toggle for the time delay.
+                        Toggle("", isOn: $viewModel.delayIsActive)
+                        .frame(width: UIScreen.main.bounds.width * 0.2,
+                               height: 40,
+                               alignment: .center)
                         Image(systemName: "clock")
                             .resizable()
-                            .frame(width: UIScreen.main.bounds.width * 0.06, height: UIScreen.main.bounds.width * 0.06, alignment: .center)
+                            .frame(width: UIScreen.main.bounds.width * 0.06,
+                                   height: UIScreen.main.bounds.width * 0.06,
+                                   alignment: .center)
                             .aspectRatio(contentMode: .fit)
                             .padding(.leading, 10)
                             .foregroundColor(.secondary)
@@ -31,8 +39,11 @@ struct ColorButtonsMainView: View {
                     }
                     .padding(.vertical)
                     Spacer()
-                    ColorSelector(viewModel: ghostDrawingVM)
-                        .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.width * 0.2, alignment: .center)
+                    // Color selection tool at the bottom of the view.
+                    ColorSelector(viewModel: viewModel)
+                        .frame(width: UIScreen.main.bounds.width * 0.8,
+                               height: UIScreen.main.bounds.width * 0.2,
+                               alignment: .center)
                         .padding(.bottom)
                 }
             }
@@ -42,17 +53,19 @@ struct ColorButtonsMainView: View {
         }
         .alert(isPresented: $showAlert) { () -> Alert in
             let primaryButton = Alert.Button.default(Text("Clear")) {
-                ghostDrawingVM.clearAllDrawings()
-                
+                viewModel.clearAllDrawings()
             }
-            return Alert(title: Text("Clear Drawing?"), message: Text("Are you sure you would like to clear the entire drawing?"),primaryButton: primaryButton, secondaryButton: .cancel())
-            
+            return Alert(title: Text("Clear Drawing?"),
+                         message: Text("Are you sure you would like to clear the entire drawing?"),
+                         primaryButton: primaryButton,
+                         secondaryButton: .cancel())
         }
     }
+    
 }
 
 
-
+// MARK: - Preview
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ColorButtonsMainView()
