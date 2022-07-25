@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ColorButtonsMainView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var ghostDrawingVM = GhostDrawingViewModel()
-    @State var currentDrawing = Drawing()
+    @ObservedObject var ghostDrawingVM = GhostDrawingViewModel()
+    
     var body: some View {
         ZStack {
             colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
-            DrawingBoardView(currentDrawing: currentDrawing, drawings: [Drawing](), ghostDrawingVM: ghostDrawingVM)
+            DrawingBoardView(ghostDrawingVM: ghostDrawingVM)
             ZStack {
                 VStack {
                     HStack {
@@ -26,13 +26,14 @@ struct ColorButtonsMainView: View {
                             .frame(width: UIScreen.main.bounds.width * 0.06, height: UIScreen.main.bounds.width * 0.06, alignment: .center)
                             .aspectRatio(contentMode: .fit)
                             .padding(.leading, 10)
+                            .foregroundColor(.secondary)
                         Spacer()
                     }
                     .padding(.vertical)
-                    
                     Spacer()
                     ColorSelector(viewModel: ghostDrawingVM)
                         .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.width * 0.2, alignment: .center)
+                        .padding(.bottom)
                 }
             }
         }
@@ -44,5 +45,6 @@ struct ColorButtonsMainView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ColorButtonsMainView()
+            .preferredColorScheme(.light)
     }
 }
