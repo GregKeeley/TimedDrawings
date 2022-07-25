@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MainDrawingBoardView.swift
 //  Shared
 //
 //  Created by Gregory Keeley on 7/20/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ColorButtonsMainView: View {
+struct MainDrawingBoardView: View {
     /// Environment object for tracking the users dark/light mode.
     @Environment(\.colorScheme) var colorScheme
     /// The view model needed for drawings.
@@ -20,7 +20,7 @@ struct ColorButtonsMainView: View {
             // Change background color based on the users preference for dark/light mode on their phone.
             colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
             // Canvas drawing board.
-            DrawingBoardView(ghostDrawingVM: viewModel)
+            CanvasView(ghostDrawingVM: viewModel)
             ZStack {
                 VStack {
                     HStack {
@@ -70,7 +70,7 @@ struct ColorButtonsMainView: View {
 // MARK: - Preview
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ColorButtonsMainView()
+        MainDrawingBoardView()
             .preferredColorScheme(.dark)
     }
 }

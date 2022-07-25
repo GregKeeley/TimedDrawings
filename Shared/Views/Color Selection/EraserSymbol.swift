@@ -1,5 +1,5 @@
 //
-//  EraserIcon.swift
+//  EraserSymbol.swift
 //  GhostDrawings (iOS)
 //
 //  Created by Gregory Keeley on 7/25/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EraserIcon: View {
+struct EraserSymbol: View {
     
     var body: some View {
         GeometryReader { geo in
@@ -40,7 +40,7 @@ struct EraserIcon: View {
 // MARK: - Previews
 struct EraserIcon_Previews: PreviewProvider {
     static var previews: some View {
-        EraserIcon()
+        EraserSymbol()
             .previewLayout(.sizeThatFits)
     }
 }

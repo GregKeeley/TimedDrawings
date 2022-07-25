@@ -1,5 +1,5 @@
 //
-//  DrawingBoardView.swift
+//  CanvasView.swift
 //  GhostDrawings (iOS)
 //
 //  Created by Gregory Keeley on 7/20/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DrawingBoardView: View {
+struct CanvasView: View {
     /// View model to track various properties of the drawing.
     @ObservedObject var ghostDrawingVM: DrawingViewModel
     

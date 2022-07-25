@@ -1,5 +1,5 @@
 //
-//  GhostDrawingViewModel.swift
+//  DrawingViewModel.swift
 //  GhostDrawings (iOS)
 //
 //  Created by Gregory Keeley on 7/20/22.
@@ -17,7 +17,7 @@ class DrawingViewModel: ObservableObject {
     /// Stores every drawing, regardless of color.
     @Published public var allDrawings: [Drawing] = [Drawing]()
     /// Stores the current color selected by the user.
-    @Published public var currentColor: Color = Color.blue
+    @Published public var currentColor: Color = Color.red
     /// Stores the line width of the line for the drawing.
     @Published public var currentLineWidth: CGFloat = 3.0
     /// Determines if the time delay is on. Set to `true` when you want a time delay on the drawings; `false` for no time delay.

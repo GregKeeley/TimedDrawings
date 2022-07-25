@@ -41,7 +41,7 @@ struct ColorSelectionButton: View {
                             .stroke(.gray, lineWidth: 3.0)
                             .frame(width: (geo.size.width * 0.8), height: (geo.size.width * 0.8), alignment: .center)
                             .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
-                        EraserIcon()
+                        EraserSymbol()
                             .foregroundColor(.gray)
                             .frame(width: (geo.size.width * 0.7), height: (geo.size.width * 0.7), alignment: .center)
                             .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
