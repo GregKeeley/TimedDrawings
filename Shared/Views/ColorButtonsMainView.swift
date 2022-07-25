@@ -10,7 +10,7 @@ import SwiftUI
 struct ColorButtonsMainView: View {
     @Environment(\.colorScheme) var colorScheme
     @ObservedObject var ghostDrawingVM = GhostDrawingViewModel()
-    
+    @State var showAlert = false
     var body: some View {
         ZStack {
             colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
@@ -36,6 +36,17 @@ struct ColorButtonsMainView: View {
                         .padding(.bottom)
                 }
             }
+        }
+        .onShake {
+            showAlert = true
+        }
+        .alert(isPresented: $showAlert) { () -> Alert in
+            let primaryButton = Alert.Button.default(Text("Clear")) {
+                ghostDrawingVM.clearAllDrawings()
+                
+            }
+            return Alert(title: Text("Clear Drawing?"), message: Text("Are you sure you would like to clear the entire drawing?"),primaryButton: primaryButton, secondaryButton: .cancel())
+            
         }
     }
 }

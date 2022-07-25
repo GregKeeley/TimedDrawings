@@ -117,7 +117,14 @@ class GhostDrawingViewModel: ObservableObject {
                                                lineWidth: 20.0)
         }
     }
-    
+    /// Clears everything for a blank canvas.
+    public func clearAllDrawings() {
+        allDrawings = [Drawing]()
+        currentEraserDrawing = Drawing(color: .clear, lineWidth: 20.0)
+        currentRedDrawing = Drawing(color: .red, lineWidth: 4.0)
+        currentBlueDrawing = Drawing(color: .blue, lineWidth: 4.0)
+        currentGreenDrawing = Drawing(color: .green, lineWidth: 4.0)
+    }
 }
 
 struct Drawing {
