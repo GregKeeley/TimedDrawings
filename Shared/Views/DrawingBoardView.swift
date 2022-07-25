@@ -12,8 +12,6 @@ struct DrawingBoardView: View {
     /// View model to track various properties of the drawing.
     @ObservedObject var ghostDrawingVM: GhostDrawingViewModel
     
-    @State var currentDrawing = Drawing()
-    
     var body: some View {
         VStack {
             Canvas { context, _ in
@@ -35,7 +33,7 @@ struct DrawingBoardView: View {
                         // Get the CGPoint from the drag gesture location.
                         let newPoint = value.location
                         // Check if the timer is enabled; Delay path from being created, based on the current color.
-                        ghostDrawingVM.addPointsToDrawing(point: newPoint)
+                        ghostDrawingVM.addPointToDrawing(point: newPoint)
                         ghostDrawingVM.addDrawing()
                     })
                     .onEnded({ value in
