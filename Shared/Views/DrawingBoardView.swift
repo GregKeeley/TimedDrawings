@@ -34,7 +34,6 @@ struct DrawingBoardView: View {
                         let newPoint = value.location
                         // Check if the timer is enabled; Delay path from being created, based on the current color.
                         ghostDrawingVM.addPointToDrawing(point: newPoint)
-                        ghostDrawingVM.addDrawing()
                     })
                     .onEnded({ value in
                         // Drag gesture ended; Add current drawing to collection; Reinitialize the next drawing.
