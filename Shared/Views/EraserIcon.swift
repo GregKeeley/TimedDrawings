@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EraserIcon: View {
-    var foreGroundColor: Color = .gray
     var xOffsetMult = -0.2
     var sizeMult = 0.4
     var body: some View {
@@ -21,7 +20,6 @@ struct EraserIcon: View {
                                 .resizable()
                                 .offset(x: geo.size.width * xOffsetMult, y: 5.5)
                                 .frame(width: geo.size.height * sizeMult, height: geo.size.height * sizeMult, alignment: .center)
-                                .foregroundColor(Color.pink)
                             Image(systemName: "rectangle.portrait.fill")
                                 .resizable()
                                 .offset(x: geo.size.width * xOffsetMult, y: geo.size.height * 0.37)
@@ -30,8 +28,7 @@ struct EraserIcon: View {
                         .offset(x: 13, y: -17)
                         .rotationEffect(.degrees(-133))
                     }
-                    .foregroundColor(foreGroundColor)
-                    .symbolRenderingMode(.multicolor)
+                    .foregroundColor(.secondary)
             }
         }
     }

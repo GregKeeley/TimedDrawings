@@ -30,7 +30,11 @@ struct DrawingBoardView: View {
             .gesture(
                 DragGesture(minimumDistance: 0)
                     .onChanged({ value in
-                        ghostDrawingVM.touchEventEnded = false
+                        if ghostDrawingVM.timerIsActive {
+                            ghostDrawingVM.touchEventEnded = false
+                        } else {
+                            ghostDrawingVM.touchEventEnded = true
+                        }
                         // Get the CGPoint from the drag gesture location.
                         let newPoint = value.location
                         // Check if the timer is enabled; Delay path from being created, based on the current color.

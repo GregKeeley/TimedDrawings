@@ -32,5 +32,6 @@ struct ColorSelector_Previews: PreviewProvider {
     static var previews: some View {
         ColorSelector()
             .previewLayout(.sizeThatFits)
+            .frame(width: 200, height: 40, alignment: .center)
     }
 }

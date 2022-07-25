@@ -14,7 +14,6 @@
 		37178BD82888CA2800B7B4D0 /* DrawingBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37178BD72888CA2800B7B4D0 /* DrawingBoardView.swift */; };
 		3728D2AF288EC9D4002FBF30 /* EraserIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3728D2AE288EC9D4002FBF30 /* EraserIcon.swift */; };
 		373632CC288CC47900C6BF71 /* ColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373632CB288CC47900C6BF71 /* ColorSelector.swift */; };
-		37545ED62889FC9800D64642 /* AllColorsDrawingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37545ED52889FC9800D64642 /* AllColorsDrawingBoard.swift */; };
 		3790B4CD2887FFF100737BCA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4CC2887FFF100737BCA /* Tests_iOS.swift */; };
 		3790B4CF2887FFF100737BCA /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4CE2887FFF100737BCA /* Tests_iOSLaunchTests.swift */; };
 		3790B4D92887FFF100737BCA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4D82887FFF100737BCA /* Tests_macOS.swift */; };
@@ -51,7 +50,6 @@
 		37178BD72888CA2800B7B4D0 /* DrawingBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingBoardView.swift; sourceTree = "<group>"; };
 		3728D2AE288EC9D4002FBF30 /* EraserIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserIcon.swift; sourceTree = "<group>"; };
 		373632CB288CC47900C6BF71 /* ColorSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelector.swift; sourceTree = "<group>"; };
-		37545ED52889FC9800D64642 /* AllColorsDrawingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllColorsDrawingBoard.swift; sourceTree = "<group>"; };
 		3790B4B42887FFEF00737BCA /* GhostDrawingsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostDrawingsApp.swift; sourceTree = "<group>"; };
 		3790B4B52887FFEF00737BCA /* ColorButtonsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButtonsMainView.swift; sourceTree = "<group>"; };
 		3790B4B62887FFF100737BCA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -105,7 +103,6 @@
 				3790B4B52887FFEF00737BCA /* ColorButtonsMainView.swift */,
 				37178BD52888B16100B7B4D0 /* ColorSelectionButton.swift */,
 				37178BD72888CA2800B7B4D0 /* DrawingBoardView.swift */,
-				37545ED52889FC9800D64642 /* AllColorsDrawingBoard.swift */,
 				3728D2AE288EC9D4002FBF30 /* EraserIcon.swift */,
 			);
 			path = Views;
@@ -346,7 +343,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				370BE15C288F07D4007F6CB5 /* ViewExtension.swift in Sources */,
-				37545ED62889FC9800D64642 /* AllColorsDrawingBoard.swift in Sources */,
 				373632CC288CC47900C6BF71 /* ColorSelector.swift in Sources */,
 				37178BD42888AFB300B7B4D0 /* GhostDrawingViewModel.swift in Sources */,
 				3790B4DE2887FFF100737BCA /* ColorButtonsMainView.swift in Sources */,

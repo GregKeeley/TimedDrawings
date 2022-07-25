@@ -14,6 +14,12 @@ struct ColorSelectionButton: View {
     var deviceSize = UIScreen.main.bounds.size
     @Binding public var currentColor: Color
     @Binding public var currentLineWidth: CGFloat
+    
+    /// Opacity value for when a buttons color is currently selected as input.
+    var selectedOpacity = 0.95
+    /// The default opacity for a buttons color; Used when that color has not been selected.
+    var defaultOpacity = 0.4
+    
     var body: some View {
         GeometryReader { geo in
             Button {
@@ -27,17 +33,17 @@ struct ColorSelectionButton: View {
                         Circle()
                             .stroke(color, lineWidth: 2.0)
                             .frame(width: (geo.size.width * 0.8), height: (geo.size.width * 0.8), alignment: .center)
-                            .opacity(currentColor == color ? 0.95 : 0.3)
+                            .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
                         // Inner Circle.
                         Circle()
                             .foregroundColor(color)
                             .frame(width: (geo.size.width * 0.7), height: (geo.size.width * 0.7), alignment: .center)
-                            .opacity(currentColor == color ? 0.95 : 0.3)
+                            .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
                     } else {
                         EraserIcon()
                             .foregroundColor(Color.gray)
                             .frame(width: (geo.size.width * 0.8), height: (geo.size.width * 0.8), alignment: .center)
-                            .opacity(currentColor == color ? 0.95 : 0.3)
+                            .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
                     }
                 }
             }
@@ -49,7 +55,7 @@ struct ColorSelectionButton: View {
 struct ColorSelectionButton_Previews: PreviewProvider {
     
     static var previews: some View {
-        ColorSelectionButton(color: Color.clear, lineWidth: 3.0, currentColor: .constant(.blue), currentLineWidth: .constant(3.0))
+        ColorSelectionButton(color: Color.blue, lineWidth: 3.0, currentColor: .constant(.blue), currentLineWidth: .constant(3.0))
             .previewLayout(.sizeThatFits)
     }
 }

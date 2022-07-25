@@ -27,6 +27,9 @@ class GhostDrawingViewModel: ObservableObject {
     @Published public var currentLineWidth: CGFloat = 3.0
     // TODO: Re-enable the timer  by default.
     @Published public var timerIsActive: Bool = false
+    
+    var touchEventEnded = false
+    
     /// Adds the points to the Drawing and Path. Path is mutated in place.
     public func addPathToDrawing(drawing: Drawing, path: inout Path) {
         let points = drawing.points
@@ -40,10 +43,6 @@ class GhostDrawingViewModel: ObservableObject {
         }
     }
     
-
-
-
-    var touchEventEnded = false
     public func addPointToDrawing(point: CGPoint) {
         switch currentColor {
             case .red:
