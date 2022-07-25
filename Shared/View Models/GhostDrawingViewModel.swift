@@ -19,11 +19,11 @@ class GhostDrawingViewModel: ObservableObject {
     @Published public var blueDrawings: [Drawing] = [Drawing]()
     @Published public var greenDrawings: [Drawing] = [Drawing]()
     @Published public var eraserDrawings: [Drawing] = [Drawing]()
-
+    
     
     @Published public var allDrawings: [Drawing] = [Drawing]()
     @Published public var currentColor: Color = Color.blue
-        
+    
     @Published public var currentLineWidth: CGFloat = 3.0
     // TODO: Re-enable the timer  by default.
     @Published public var timerIsActive: Bool = false
@@ -40,33 +40,59 @@ class GhostDrawingViewModel: ObservableObject {
         }
     }
     
+
+
+
+    var touchEventEnded = false
     public func addPointToDrawing(point: CGPoint) {
         switch currentColor {
             case .red:
-                DispatchQueue.main.asyncAfter(deadline: .now() + (timerIsActive ? 1.0 : 0.0)) { [self] in
-                    self.currentRedDrawing.points.append(point)
+                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 1.0 : 0.0, repeats: false) { _ in
+                    if self.touchEventEnded {
+                        self.currentRedDrawing.points.append(point)
+                        self.allDrawings.append(self.currentRedDrawing)
+                    }
                 }
+                RunLoop.current.add(timer, forMode: .common)
             case .blue:
-                DispatchQueue.main.asyncAfter(deadline: .now() + (timerIsActive ? 3.0 : 0.0)) {
-                    self.currentBlueDrawing.points.append(point)
+                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 3.0 : 0.0, repeats: false) { _ in
+                    if self.touchEventEnded {
+                        self.currentBlueDrawing.points.append(point)
+                        self.allDrawings.append(self.currentBlueDrawing)
+                    }
                 }
+                RunLoop.current.add(timer, forMode: .common)
             case .green:
-                DispatchQueue.main.asyncAfter(deadline: .now() + (timerIsActive ? 5.0 : 0.0)) {
-                    self.currentGreenDrawing.points.append(point)
+                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                    if self.touchEventEnded {
+                        self.currentGreenDrawing.points.append(point)
+                        self.allDrawings.append(self.currentGreenDrawing)
+                    }
                 }
+                RunLoop.current.add(timer, forMode: .common)
             default:
                 currentEraserDrawing.points.append(point)
+                self.allDrawings.append(self.currentEraserDrawing)
         }
     }
     
     public func addDrawing() {
         switch currentColor {
             case .red:
-                self.allDrawings.append(self.currentRedDrawing)
+                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                    self.allDrawings.append(self.currentRedDrawing)
+                }
+                RunLoop.current.add(timer, forMode: .common)
             case .blue:
-                self.allDrawings.append(self.currentBlueDrawing)
+                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                    self.allDrawings.append(self.currentBlueDrawing)
+                }
+                RunLoop.current.add(timer, forMode: .common)
             case .green:
-                self.allDrawings.append(self.currentGreenDrawing)
+                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                    self.allDrawings.append(self.currentGreenDrawing)
+                }
+                RunLoop.current.add(timer, forMode: .common)
             default:
                 self.allDrawings.append(self.currentEraserDrawing)
         }
@@ -76,16 +102,16 @@ class GhostDrawingViewModel: ObservableObject {
         switch currentColor {
             case .red:
                 currentRedDrawing = Drawing(points: [],
-                                               color: .red,
-                                               lineWidth: 4.0)
+                                            color: .red,
+                                            lineWidth: 4.0)
             case .blue:
                 currentBlueDrawing = Drawing(points: [],
-                                               color: .blue,
-                                               lineWidth: 4.0)
+                                             color: .blue,
+                                             lineWidth: 4.0)
             case .green:
                 currentGreenDrawing = Drawing(points: [],
-                                               color: .green,
-                                               lineWidth: 4.0)
+                                              color: .green,
+                                              lineWidth: 4.0)
             default:
                 currentEraserDrawing = Drawing(points: [],
                                                color: .clear,
@@ -101,4 +127,4 @@ struct Drawing {
     var lineWidth: Double
 }
 
-    
+
