@@ -10,7 +10,9 @@ import SwiftUI
 struct DrawingBoardView: View {
     
     /// View model to track various properties of the drawing.
-    @StateObject var ghostDrawingVM: GhostDrawingViewModel
+    @ObservedObject var ghostDrawingVM: GhostDrawingViewModel
+    
+    @State var currentDrawing = Drawing()
     
     var body: some View {
         VStack {
@@ -33,46 +35,13 @@ struct DrawingBoardView: View {
                         // Get the CGPoint from the drag gesture location.
                         let newPoint = value.location
                         // Check if the timer is enabled; Delay path from being created, based on the current color.
-                        switch ghostDrawingVM.currentColor {
-                            case .red:
-                                DispatchQueue.main.asyncAfter(deadline: .now() + (ghostDrawingVM.timerIsActive ? 1.0 : 0.0)) {
-                                    ghostDrawingVM.currentRedDrawing.points.append(newPoint)
-                                    ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentDrawing)
-                                }
-                            case .blue:
-                                DispatchQueue.main.asyncAfter(deadline: .now() + (ghostDrawingVM.timerIsActive ? 3.0 : 0.0)) {
-                                    ghostDrawingVM.currentBlueDrawing.points.append(newPoint)
-                                    ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentDrawing)
-                                }
-                            case .green:
-                                DispatchQueue.main.asyncAfter(deadline: .now() + (ghostDrawingVM.timerIsActive ? 5.0 : 0.0)) {
-                                    ghostDrawingVM.currentGreenDrawing.points.append(newPoint)
-                                    ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentGreenDrawing)
-                                }
-                            default:
-                                // Eraser, no delay.
-                                ghostDrawingVM.currentEraserDrawing.points.append(newPoint)
-                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentEraserDrawing)
-                        }
-                        
+                        ghostDrawingVM.addPointsToDrawing(point: newPoint)
+                        ghostDrawingVM.addDrawing()
                     })
                     .onEnded({ value in
                         // Drag gesture ended; Add current drawing to collection; Reinitialize the next drawing.
-                        switch ghostDrawingVM.currentColor {
-                            case .red:
-                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentRedDrawing)
-                                ghostDrawingVM.currentRedDrawing = Drawing(points: [], color: Color.red, lineWidth: 3.0)
-                            case .blue:
-                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentBlueDrawing)
-                                ghostDrawingVM.currentBlueDrawing = Drawing(points: [], color: Color.blue, lineWidth: 3.0)
-                            case .green:
-                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentGreenDrawing)
-                                ghostDrawingVM.currentGreenDrawing = Drawing(points: [], color: Color.green, lineWidth: 3.0)
-                            default:
-                                // Eraser.
-                                ghostDrawingVM.allDrawings.append(ghostDrawingVM.currentEraserDrawing)
-                                ghostDrawingVM.currentEraserDrawing = Drawing(points: [], color: Color.clear, lineWidth: 20.0)
-                        }
+                        ghostDrawingVM.addDrawing()
+                        ghostDrawingVM.resetDrawing()
                     })
             )
         }

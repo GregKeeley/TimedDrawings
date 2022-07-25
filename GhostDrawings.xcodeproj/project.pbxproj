@@ -11,7 +11,6 @@
 		37178BD62888B16100B7B4D0 /* ColorSelectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37178BD52888B16100B7B4D0 /* ColorSelectionButton.swift */; };
 		37178BD82888CA2800B7B4D0 /* DrawingBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37178BD72888CA2800B7B4D0 /* DrawingBoardView.swift */; };
 		373632CC288CC47900C6BF71 /* ColorSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373632CB288CC47900C6BF71 /* ColorSelector.swift */; };
-		373632CE288D83F200C6BF71 /* CanvasStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 373632CD288D83F200C6BF71 /* CanvasStack.swift */; };
 		37545ED62889FC9800D64642 /* AllColorsDrawingBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37545ED52889FC9800D64642 /* AllColorsDrawingBoard.swift */; };
 		3790B4CD2887FFF100737BCA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4CC2887FFF100737BCA /* Tests_iOS.swift */; };
 		3790B4CF2887FFF100737BCA /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3790B4CE2887FFF100737BCA /* Tests_iOSLaunchTests.swift */; };
@@ -47,7 +46,6 @@
 		37178BD52888B16100B7B4D0 /* ColorSelectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectionButton.swift; sourceTree = "<group>"; };
 		37178BD72888CA2800B7B4D0 /* DrawingBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingBoardView.swift; sourceTree = "<group>"; };
 		373632CB288CC47900C6BF71 /* ColorSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelector.swift; sourceTree = "<group>"; };
-		373632CD288D83F200C6BF71 /* CanvasStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasStack.swift; sourceTree = "<group>"; };
 		37545ED52889FC9800D64642 /* AllColorsDrawingBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllColorsDrawingBoard.swift; sourceTree = "<group>"; };
 		3790B4B42887FFEF00737BCA /* GhostDrawingsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GhostDrawingsApp.swift; sourceTree = "<group>"; };
 		3790B4B52887FFEF00737BCA /* ColorButtonsMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButtonsMainView.swift; sourceTree = "<group>"; };
@@ -98,7 +96,6 @@
 		37178BD02888AF5800B7B4D0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				373632CD288D83F200C6BF71 /* CanvasStack.swift */,
 				373632CB288CC47900C6BF71 /* ColorSelector.swift */,
 				3790B4B52887FFEF00737BCA /* ColorButtonsMainView.swift */,
 				37178BD52888B16100B7B4D0 /* ColorSelectionButton.swift */,
@@ -347,7 +344,6 @@
 				3790B4DE2887FFF100737BCA /* ColorButtonsMainView.swift in Sources */,
 				37178BD82888CA2800B7B4D0 /* DrawingBoardView.swift in Sources */,
 				37178BD62888B16100B7B4D0 /* ColorSelectionButton.swift in Sources */,
-				373632CE288D83F200C6BF71 /* CanvasStack.swift in Sources */,
 				3790B4DC2887FFF100737BCA /* GhostDrawingsApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

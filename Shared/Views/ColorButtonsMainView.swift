@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ColorButtonsMainView: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var ghostDrawingVM = GhostDrawingViewModel()
+    @ObservedObject var ghostDrawingVM = GhostDrawingViewModel()
     
     var body: some View {
         ZStack {
