@@ -9,8 +9,6 @@ import SwiftUI
 
 /// The view model to store and track properties needed to create, erase and clear drawings. 
 class DrawingViewModel: ObservableObject {
-    /// Environment object that allows us to check the users color scheme for their device, and make UI changes based on dark or light mode.
-    @Environment(\.colorScheme) var colorScheme
     // Current drawing for each color.
     @Published public var currentRedDrawing: Drawing = Drawing(color: .red, lineWidth: 4.0)
     @Published public var currentBlueDrawing: Drawing = Drawing(color: .blue, lineWidth: 4.0)

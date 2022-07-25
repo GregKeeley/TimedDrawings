@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ColorButtonsMainView: View {
+    /// Environment object for tracking the users dark/light mode.
+    @Environment(\.colorScheme) var colorScheme
     /// The view model needed for drawings.
     @ObservedObject var viewModel = DrawingViewModel()
     /// Determines whether or not to show the alert, to clear all drawings on shake of the device.
@@ -15,8 +17,8 @@ struct ColorButtonsMainView: View {
     
     var body: some View {
         ZStack {
-            // Dark mode support.
-            viewModel.colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
+            // Change background color based on the users preference for dark/light mode on their phone.
+            colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
             // Canvas drawing board.
             DrawingBoardView(ghostDrawingVM: viewModel)
             ZStack {
@@ -24,9 +26,9 @@ struct ColorButtonsMainView: View {
                     HStack {
                         // Toggle for the time delay.
                         Toggle("", isOn: $viewModel.delayIsActive)
-                        .frame(width: UIScreen.main.bounds.width * 0.2,
-                               height: 40,
-                               alignment: .center)
+                            .frame(width: UIScreen.main.bounds.width * 0.2,
+                                   height: 40,
+                                   alignment: .center)
                         Image(systemName: "clock")
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width * 0.06,
@@ -69,6 +71,6 @@ struct ColorButtonsMainView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ColorButtonsMainView()
-            .preferredColorScheme(.light)
+            .preferredColorScheme(.dark)
     }
 }
