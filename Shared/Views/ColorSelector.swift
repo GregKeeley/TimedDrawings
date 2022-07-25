@@ -12,17 +12,19 @@ struct ColorSelector: View {
     @StateObject var viewModel = GhostDrawingViewModel()
     
     var body: some View {
-        HStack {
-            ColorSelectionButton(color: Color.red, lineWidth: 4.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
-                .padding(.leading)
-            ColorSelectionButton(color: Color.blue, lineWidth: 4.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
-                .padding(.leading)
-            ColorSelectionButton(color: Color.green, lineWidth: 4.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
-                .padding([.leading, .trailing])
-            ColorSelectionButton(color: .clear, lineWidth: 20.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
-                .padding(.trailing)
+        GeometryReader { geo in
+            HStack {
+                ColorSelectionButton(color: Color.red, lineWidth: 4.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
+                ColorSelectionButton(color: Color.blue, lineWidth: 4.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
+                ColorSelectionButton(color: Color.green, lineWidth: 4.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
+                ColorSelectionButton(color: .clear, lineWidth: 20.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
+            }
+            .position(x: geo.size.width * 0.53, y: geo.size.width * 0.154)
+            .overlay(
+                RoundedRectangle(cornerRadius: 40.0)
+                    .stroke(.gray, lineWidth: 2.0)
+            )
         }
-        
     }
 }
 

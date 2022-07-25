@@ -15,6 +15,7 @@ struct ColorSelectionButton: View {
     @Binding public var currentColor: Color
     @Binding public var currentLineWidth: CGFloat
     var body: some View {
+        GeometryReader { geo in
             Button {
                 currentColor = color
                 currentLineWidth = lineWidth
@@ -22,21 +23,25 @@ struct ColorSelectionButton: View {
             } label: {
                 ZStack {
                     if color != .clear {
+                        // Outer circle
                         Circle()
                             .stroke(color, lineWidth: 2.0)
-                            .frame(width: (deviceSize.width * 0.2), height: (deviceSize.width * 0.2), alignment: .center)
+                            .frame(width: (geo.size.width * 0.8), height: (geo.size.width * 0.8), alignment: .center)
+                            .opacity(currentColor == color ? 0.95 : 0.3)
+                        // Inner Circle.
                         Circle()
                             .foregroundColor(color)
-                            .frame(width: (deviceSize.width * 0.165), height: (deviceSize.width  * 0.165), alignment: .center)
+                            .frame(width: (geo.size.width * 0.7), height: (geo.size.width * 0.7), alignment: .center)
+                            .opacity(currentColor == color ? 0.95 : 0.3)
                     } else {
-                        Image(systemName: "trash.circle")
-                            .resizable()
+                        EraserIcon()
                             .foregroundColor(Color.gray)
-                            .frame(width: (deviceSize.width * 0.2), height: (deviceSize.width  * 0.2), alignment: .center)
+                            .frame(width: (geo.size.width * 0.8), height: (geo.size.width * 0.8), alignment: .center)
+                            .opacity(currentColor == color ? 0.95 : 0.3)
                     }
                 }
-                
             }
+        }
     }
     
 }
@@ -44,7 +49,7 @@ struct ColorSelectionButton: View {
 struct ColorSelectionButton_Previews: PreviewProvider {
     
     static var previews: some View {
-        ColorSelectionButton(color: Color.red, lineWidth: 3.0, currentColor: .constant(Color.blue), currentLineWidth: .constant(3.0))
+        ColorSelectionButton(color: Color.clear, lineWidth: 3.0, currentColor: .constant(.blue), currentLineWidth: .constant(3.0))
             .previewLayout(.sizeThatFits)
     }
 }
