@@ -8,21 +8,23 @@
 import SwiftUI
 
 struct DrawingBoardView: View {
-    /// The current drawing.
-    @State var currentDrawing: Drawing
-    /// Array of all drawings to iterate through.
-    @State var drawings: [Drawing]
+    
     /// View model to track various properties of the drawing.
-    @StateObject var ghostDrawingVM: GhostDrawingViewModel
+    @ObservedObject var ghostDrawingVM: GhostDrawingViewModel
     
     var body: some View {
         VStack {
             Canvas { context, _ in
-                for drawing in drawings {
+                for drawing in ghostDrawingVM.allDrawings {
                     var path = Path()
                     path.addLines(drawing.points)
-                    // TODO: Replace lineWidth with ghostDrawingVM.currentLineWidth
-                    context.stroke(path, with: .color(drawing.color), lineWidth: drawing.lineWidth)
+                    if drawing.color == .clear {
+                        context.blendMode = .clear
+                        context.stroke(path, with: .color(.clear), lineWidth: drawing.lineWidth)
+                    } else {
+                        context.blendMode = .normal
+                        context.stroke(path, with: .color(drawing.color), lineWidth: drawing.lineWidth)
+                    }
                 }
             }
             .gesture(
@@ -31,48 +33,13 @@ struct DrawingBoardView: View {
                         // Get the CGPoint from the drag gesture location.
                         let newPoint = value.location
                         // Check if the timer is enabled; Delay path from being created, based on the current color.
-                        if ghostDrawingVM.timerIsActive {
-                            switch ghostDrawingVM.currentColor {
-                                case .red:
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                        currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
-                                        currentDrawing.color = ghostDrawingVM.currentColor
-                                        currentDrawing.points.append(newPoint)
-                                        self.drawings.append(currentDrawing)
-                                    }
-                                case .blue:
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                                        currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
-                                        currentDrawing.color = ghostDrawingVM.currentColor
-                                        currentDrawing.points.append(newPoint)
-                                        self.drawings.append(currentDrawing)
-                                    }
-                                case .green:
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                        currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
-                                        currentDrawing.color = ghostDrawingVM.currentColor
-                                        currentDrawing.points.append(newPoint)
-                                        self.drawings.append(currentDrawing)
-                                    }
-                                default:
-                                    // Eraser, no delay.
-                                    currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
-                                    currentDrawing.color = ghostDrawingVM.currentColor
-                                    currentDrawing.points.append(newPoint)
-                                    self.drawings.append(currentDrawing)
-                            }
-                        } else {
-                            // All Colors, no delay.
-                            currentDrawing.lineWidth = ghostDrawingVM.currentLineWidth
-                            currentDrawing.color = ghostDrawingVM.currentColor
-                            currentDrawing.points.append(newPoint)
-                            self.drawings.append(currentDrawing)
-                        }
+                        ghostDrawingVM.addPointToDrawing(point: newPoint)
+                        ghostDrawingVM.addDrawing()
                     })
                     .onEnded({ value in
                         // Drag gesture ended; Add current drawing to collection; Reinitialize the next drawing.
-                        self.drawings.append(currentDrawing)
-                        self.currentDrawing = Drawing(points: [], color: ghostDrawingVM.currentColor, lineWidth: 3.0)
+                        ghostDrawingVM.addDrawing()
+                        ghostDrawingVM.resetDrawing()
                     })
             )
         }
@@ -82,10 +49,10 @@ struct DrawingBoardView: View {
 
 
 
-struct DrawingBoardView_Previews: PreviewProvider {
-    static let drawing = Drawing(points: [CGPoint](), color: Color.red, lineWidth: 3.0)
-    static let vm = GhostDrawingViewModel()
-    static var previews: some View {
-        DrawingBoardView(currentDrawing: drawing, drawings: [Drawing](), ghostDrawingVM: vm)
-    }
-}
+//struct DrawingBoardView_Previews: PreviewProvider {
+//    static let drawing = Drawing(points: [CGPoint](), color: Color.red, lineWidth: 3.0)
+//    static let vm = GhostDrawingViewModel()
+//    static var previews: some View {
+//        DrawingBoardView(currentDrawing: drawing, drawings: [Drawing](), ghostDrawingVM: vm)
+//    }
+//}

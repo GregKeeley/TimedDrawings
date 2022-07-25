@@ -21,7 +21,7 @@ struct ColorSelectionButton: View {
                 print(lineWidth)
             } label: {
                 ZStack {
-                    if color != .black && color != .white {
+                    if color != .clear {
                         Circle()
                             .stroke(color, lineWidth: 2.0)
                             .frame(width: (deviceSize.width * 0.2), height: (deviceSize.width * 0.2), alignment: .center)

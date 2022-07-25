@@ -8,17 +8,22 @@
 import SwiftUI
 
 class GhostDrawingViewModel: ObservableObject {
+    @Environment(\.colorScheme) var colorScheme
     // Current drawing for each color.
-    @Published public var currentRedDrawing: Drawing = Drawing()
-    @Published public var currentBlueDrawing: Drawing = Drawing()
-    @Published public var currentGreenDrawing: Drawing = Drawing()
-    @Published public var currentDrawing: Drawing = Drawing()
+    @Published public var currentRedDrawing: Drawing = Drawing(color: .red, lineWidth: 4.0)
+    @Published public var currentBlueDrawing: Drawing = Drawing(color: .blue, lineWidth: 4.0)
+    @Published public var currentGreenDrawing: Drawing = Drawing(color: .green, lineWidth: 4.0)
+    @Published public var currentEraserDrawing: Drawing = Drawing(color: .clear, lineWidth: 20.0)
     // Collection of drawings for each color.
     @Published public var redDrawings: [Drawing] = [Drawing]()
     @Published public var blueDrawings: [Drawing] = [Drawing]()
     @Published public var greenDrawings: [Drawing] = [Drawing]()
+    @Published public var eraserDrawings: [Drawing] = [Drawing]()
+
+    
     @Published public var allDrawings: [Drawing] = [Drawing]()
     @Published public var currentColor: Color = Color.blue
+        
     @Published public var currentLineWidth: CGFloat = 3.0
     // TODO: Re-enable the timer  by default.
     @Published public var timerIsActive: Bool = false
@@ -35,12 +40,65 @@ class GhostDrawingViewModel: ObservableObject {
         }
     }
     
+    public func addPointToDrawing(point: CGPoint) {
+        switch currentColor {
+            case .red:
+                DispatchQueue.main.asyncAfter(deadline: .now() + (timerIsActive ? 1.0 : 0.0)) { [self] in
+                    self.currentRedDrawing.points.append(point)
+                }
+            case .blue:
+                DispatchQueue.main.asyncAfter(deadline: .now() + (timerIsActive ? 3.0 : 0.0)) {
+                    self.currentBlueDrawing.points.append(point)
+                }
+            case .green:
+                DispatchQueue.main.asyncAfter(deadline: .now() + (timerIsActive ? 5.0 : 0.0)) {
+                    self.currentGreenDrawing.points.append(point)
+                }
+            default:
+                currentEraserDrawing.points.append(point)
+        }
+    }
+    
+    public func addDrawing() {
+        switch currentColor {
+            case .red:
+                self.allDrawings.append(self.currentRedDrawing)
+            case .blue:
+                self.allDrawings.append(self.currentBlueDrawing)
+            case .green:
+                self.allDrawings.append(self.currentGreenDrawing)
+            default:
+                self.allDrawings.append(self.currentEraserDrawing)
+        }
+    }
+    
+    public func resetDrawing() {
+        switch currentColor {
+            case .red:
+                currentRedDrawing = Drawing(points: [],
+                                               color: .red,
+                                               lineWidth: 4.0)
+            case .blue:
+                currentBlueDrawing = Drawing(points: [],
+                                               color: .blue,
+                                               lineWidth: 4.0)
+            case .green:
+                currentGreenDrawing = Drawing(points: [],
+                                               color: .green,
+                                               lineWidth: 4.0)
+            default:
+                currentEraserDrawing = Drawing(points: [],
+                                               color: .clear,
+                                               lineWidth: 20.0)
+        }
+    }
+    
 }
 
 struct Drawing {
     var points = [CGPoint]()
-    var color: Color = .red
-    var lineWidth: Double = 3.0
+    var color: Color
+    var lineWidth: Double
 }
 
     
