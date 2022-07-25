@@ -43,27 +43,33 @@ class GhostDrawingViewModel: ObservableObject {
 
 
 
-    
+    var touchEventEnded = false
     public func addPointToDrawing(point: CGPoint) {
         switch currentColor {
             case .red:
                 let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 1.0 : 0.0, repeats: false) { _ in
-                    self.currentRedDrawing.points.append(point)
-                    self.allDrawings.append(self.currentRedDrawing)
+                    if self.touchEventEnded {
+                        self.currentRedDrawing.points.append(point)
+                        self.allDrawings.append(self.currentRedDrawing)
+                    }
                 }
-                RunLoop.current.add(timer, forMode: .default)
+                RunLoop.current.add(timer, forMode: .common)
             case .blue:
                 let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 3.0 : 0.0, repeats: false) { _ in
-                    self.currentBlueDrawing.points.append(point)
-                    self.allDrawings.append(self.currentBlueDrawing)
+                    if self.touchEventEnded {
+                        self.currentBlueDrawing.points.append(point)
+                        self.allDrawings.append(self.currentBlueDrawing)
+                    }
                 }
-                RunLoop.current.add(timer, forMode: .default)
+                RunLoop.current.add(timer, forMode: .common)
             case .green:
                 let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
-                    self.currentGreenDrawing.points.append(point)
-                    self.allDrawings.append(self.currentGreenDrawing)
+                    if self.touchEventEnded {
+                        self.currentGreenDrawing.points.append(point)
+                        self.allDrawings.append(self.currentGreenDrawing)
+                    }
                 }
-                RunLoop.current.add(timer, forMode: .default)
+                RunLoop.current.add(timer, forMode: .common)
             default:
                 currentEraserDrawing.points.append(point)
                 self.allDrawings.append(self.currentEraserDrawing)
@@ -73,11 +79,20 @@ class GhostDrawingViewModel: ObservableObject {
     public func addDrawing() {
         switch currentColor {
             case .red:
-                self.allDrawings.append(self.currentRedDrawing)
+                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                    self.allDrawings.append(self.currentRedDrawing)
+                }
+                RunLoop.current.add(timer, forMode: .common)
             case .blue:
-                self.allDrawings.append(self.currentBlueDrawing)
+                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                    self.allDrawings.append(self.currentBlueDrawing)
+                }
+                RunLoop.current.add(timer, forMode: .common)
             case .green:
-                self.allDrawings.append(self.currentGreenDrawing)
+                let timer = Timer.scheduledTimer(withTimeInterval: timerIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                    self.allDrawings.append(self.currentGreenDrawing)
+                }
+                RunLoop.current.add(timer, forMode: .common)
             default:
                 self.allDrawings.append(self.currentEraserDrawing)
         }
