@@ -25,13 +25,12 @@ struct ColorSelectionButton: View {
             Button {
                 currentColor = color
                 currentLineWidth = lineWidth
-                print(lineWidth)
             } label: {
                 ZStack {
                     if color != .clear {
                         // Outer circle
                         Circle()
-                            .stroke(color, lineWidth: 2.0)
+                            .stroke(color, lineWidth: 3.0)
                             .frame(width: (geo.size.width * 0.8), height: (geo.size.width * 0.8), alignment: .center)
                             .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
                         // Inner Circle.
@@ -40,9 +39,13 @@ struct ColorSelectionButton: View {
                             .frame(width: (geo.size.width * 0.7), height: (geo.size.width * 0.7), alignment: .center)
                             .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
                     } else {
-                        EraserIcon()
-                            .foregroundColor(Color.gray)
+                        Circle()
+                            .stroke(.gray, lineWidth: 3.0)
                             .frame(width: (geo.size.width * 0.8), height: (geo.size.width * 0.8), alignment: .center)
+                            .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
+                        EraserIcon()
+                            .foregroundColor(.gray)
+                            .frame(width: (geo.size.width * 0.7), height: (geo.size.width * 0.7), alignment: .center)
                             .opacity(currentColor == color ? selectedOpacity : defaultOpacity)
                     }
                 }
@@ -55,7 +58,7 @@ struct ColorSelectionButton: View {
 struct ColorSelectionButton_Previews: PreviewProvider {
     
     static var previews: some View {
-        ColorSelectionButton(color: Color.blue, lineWidth: 3.0, currentColor: .constant(.blue), currentLineWidth: .constant(3.0))
+        ColorSelectionButton(color: Color.clear, lineWidth: 3.0, currentColor: .constant(.blue), currentLineWidth: .constant(3.0))
             .previewLayout(.sizeThatFits)
     }
 }

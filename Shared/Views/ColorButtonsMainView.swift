@@ -33,6 +33,7 @@ struct ColorButtonsMainView: View {
                     Spacer()
                     ColorSelector(viewModel: ghostDrawingVM)
                         .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.width * 0.2, alignment: .center)
+                        .padding(.bottom)
                 }
             }
         }
@@ -44,6 +45,6 @@ struct ColorButtonsMainView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ColorButtonsMainView()
-            .preferredColorScheme(.dark)
+            .preferredColorScheme(.light)
     }
 }

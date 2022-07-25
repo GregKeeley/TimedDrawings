@@ -19,10 +19,11 @@ struct ColorSelector: View {
                 ColorSelectionButton(color: Color.green, lineWidth: 4.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
                 ColorSelectionButton(color: .clear, lineWidth: 20.0, currentColor: $viewModel.currentColor, currentLineWidth: $viewModel.currentLineWidth)
             }
-            .position(x: geo.size.width * 0.53, y: geo.size.width * 0.154)
+            .position(x: geo.size.width * 0.525, y: geo.size.width * 0.157)
             .overlay(
                 RoundedRectangle(cornerRadius: 40.0)
-                    .stroke(.gray, lineWidth: 2.0)
+                    .stroke(.secondary, lineWidth: 2.0)
+                    .opacity(0.4)
             )
         }
     }
@@ -31,7 +32,5 @@ struct ColorSelector: View {
 struct ColorSelector_Previews: PreviewProvider {
     static var previews: some View {
         ColorSelector()
-            .previewLayout(.sizeThatFits)
-            .frame(width: 200, height: 40, alignment: .center)
     }
 }
