@@ -12,7 +12,7 @@ struct CanvasView: View {
     @ObservedObject var ghostDrawingVM: DrawingViewModel
     
     var body: some View {
-        VStack {
+        ZStack {
             Canvas { context, _ in
                 for drawing in ghostDrawingVM.allDrawings {
                     var path = Path()
@@ -51,6 +51,10 @@ struct CanvasView: View {
                     })
             )
         }
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(.gray, lineWidth: 3.0)
+                .opacity(0.4))
     }
     
 }

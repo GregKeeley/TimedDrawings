@@ -20,7 +20,6 @@ struct MainDrawingBoardView: View {
             // Change background color based on the users preference for dark/light mode on their phone.
             colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
             // Canvas drawing board.
-            CanvasView(ghostDrawingVM: viewModel)
             ZStack {
                 VStack {
                     HStack {
@@ -41,7 +40,8 @@ struct MainDrawingBoardView: View {
                             .hidden(!(viewModel.clearButtonTapsInARow >= 6))
                         Spacer()
                     }
-                    .padding(.vertical)
+                    CanvasView(ghostDrawingVM: viewModel)
+                        .padding()
                     Spacer()
                     // Color selection tool at the bottom of the view.
                     ColorSelector(viewModel: viewModel)
