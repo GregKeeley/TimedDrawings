@@ -26,8 +26,8 @@ class DrawingViewModel: ObservableObject {
     var touchEventEnded = false
     
     // MARK: - Public Functions
-    /// Checks the current color; Time delay is enabled; Touch events ended, to start adding the points to the respective color drawing.
-    /// Once the points have been added to the drawing, add the drawing to the main collection. The eraser has no time delay.
+    /// Checks the current color and that the drag gesture has ended and immediately adds the point to the drawing.
+    /// Once the points have been added to the drawing, the drawing is added to the main collection.
     /// - Parameter point: The new point to the drawing.
     public func addPointToDrawing(point: CGPoint) {
         switch currentColor {
@@ -45,13 +45,13 @@ class DrawingViewModel: ObservableObject {
                 self.allDrawings.append(self.currentEraserDrawing)
         }
     }
-    /// Checks the current color; Time delay is enabled; Touch events ended, to start adding the points to the respective color drawing.
-    /// Once the points have been added to the drawing, add the drawing to the main collection. The eraser has no time delay.
+    /// Checks the current color and that the drag gesture has ended and adds a time delay for each color.  The eraser has no time delay.
+    /// Once the points have been added to the drawing, the drawing is added to the main collection.
     /// - Parameter point: The new point to the drawing.
     public func addPointToDrawingWithDelay(point: CGPoint) {
         switch currentColor {
             case .red:
-                let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 1.0 : 0.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
                     if self.touchEventEnded {
                         self.currentRedDrawing.points.append(point)
                         self.allDrawings.append(self.currentRedDrawing)
@@ -59,7 +59,7 @@ class DrawingViewModel: ObservableObject {
                 }
                 RunLoop.current.add(timer, forMode: .common)
             case .blue:
-                let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 3.0 : 0.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
                     if self.touchEventEnded {
                         self.currentBlueDrawing.points.append(point)
                         self.allDrawings.append(self.currentBlueDrawing)
@@ -67,7 +67,7 @@ class DrawingViewModel: ObservableObject {
                 }
                 RunLoop.current.add(timer, forMode: .common)
             case .green:
-                let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 5.0 : 0.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval:5.0, repeats: false) { _ in
                     if self.touchEventEnded {
                         self.currentGreenDrawing.points.append(point)
                         self.allDrawings.append(self.currentGreenDrawing)
