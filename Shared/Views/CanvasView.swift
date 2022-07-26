@@ -12,7 +12,7 @@ struct CanvasView: View {
     @ObservedObject var ghostDrawingVM: DrawingViewModel
     
     var body: some View {
-        VStack {
+        ZStack {
             Canvas { context, _ in
                 for drawing in ghostDrawingVM.allDrawings {
                     var path = Path()
@@ -27,26 +27,38 @@ struct CanvasView: View {
                 }
             }
             .gesture(
-                DragGesture(minimumDistance: 0)
+                DragGesture(minimumDistance: 0, coordinateSpace: .local)
                     .onChanged({ value in
                         if ghostDrawingVM.delayIsActive {
-                            ghostDrawingVM.touchEventEnded = false
+                            // Delay is active; Don't start adding to the drawing until the gesture has ended.
+                            ghostDrawingVM.beginAddingToDrawing = false
                         } else {
-                            ghostDrawingVM.touchEventEnded = true
+                            // Delay is inactive; Drawing can start right away.
+                            ghostDrawingVM.beginAddingToDrawing = true
                         }
                         // Get the CGPoint from the drag gesture location.
                         let newPoint = value.location
                         // Check if the timer is enabled; Delay path from being created, based on the current color.
-                        ghostDrawingVM.addPointToDrawing(point: newPoint)
+                        if ghostDrawingVM.delayIsActive {
+                            // Delay is active; Use the delayed drawing method.
+                            ghostDrawingVM.addPointToDrawingWithDelay(point: newPoint)
+                        } else {
+                            // Delay is inactive; add to the drawing immediately.
+                            ghostDrawingVM.addPointToDrawing(point: newPoint)
+                        }
                     })
                     .onEnded({ value in
                         // Drag gesture ended; Add current drawing to collection; Reinitialize the next drawing.
-                        ghostDrawingVM.touchEventEnded = true
+                        ghostDrawingVM.beginAddingToDrawing = true
                         ghostDrawingVM.addDrawing()
                         ghostDrawingVM.resetCurrentDrawing()
                     })
             )
         }
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(.gray, lineWidth: 3.0)
+                .opacity(0.4))
     }
     
 }

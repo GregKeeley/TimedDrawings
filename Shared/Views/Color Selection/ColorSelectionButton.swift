@@ -17,10 +17,17 @@ struct ColorSelectionButton: View {
     /// The default opacity for a buttons color; Used when that color has not been selected.
     let defaultOpacity = 0.4
     
+    @Binding var clearButtonTapsInARow: Int
+    
     var body: some View {
         GeometryReader { geo in
             Button {
                 currentColor = color
+                if color == .clear {
+                    clearButtonTapsInARow += 1
+                } else {
+                    clearButtonTapsInARow = 0
+                }
             } label: {
                 ZStack {
                     if color != .clear {
@@ -57,7 +64,7 @@ struct ColorSelectionButton: View {
 // MARK: - Previews
 struct ColorSelectionButton_Previews: PreviewProvider {
     static var previews: some View {
-        ColorSelectionButton(color: Color.red, currentColor: .constant(.red))
+        ColorSelectionButton(color: Color.red, currentColor: .constant(.red), clearButtonTapsInARow: .constant(0))
             .previewLayout(.sizeThatFits)
     }
 }

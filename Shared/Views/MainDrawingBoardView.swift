@@ -14,13 +14,16 @@ struct MainDrawingBoardView: View {
     @ObservedObject var viewModel = DrawingViewModel()
     /// Determines whether or not to show the alert, to clear all drawings on shake of the device.
     @State var showAlert = false
-    
+     
     var body: some View {
         ZStack {
+            InfoView(showInfoView: $viewModel.showInfoView)
+                .sheet(isPresented: $viewModel.showInfoView) {
+                    InfoView(showInfoView: $viewModel.showInfoView)
+                }
             // Change background color based on the users preference for dark/light mode on their phone.
             colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
             // Canvas drawing board.
-            CanvasView(ghostDrawingVM: viewModel)
             ZStack {
                 VStack {
                     HStack {
@@ -29,6 +32,7 @@ struct MainDrawingBoardView: View {
                             .frame(width: UIScreen.main.bounds.width * 0.2,
                                    height: 40,
                                    alignment: .center)
+                            .hidden(!(viewModel.clearButtonTapsInARow >= 6))
                         Image(systemName: "clock")
                             .resizable()
                             .frame(width: UIScreen.main.bounds.width * 0.06,
@@ -37,9 +41,25 @@ struct MainDrawingBoardView: View {
                             .aspectRatio(contentMode: .fit)
                             .padding(.leading, 10)
                             .foregroundColor(.secondary)
+                            .hidden(!(viewModel.clearButtonTapsInARow >= 6))
                         Spacer()
+                        Button {
+                            // Show info view here.
+                            viewModel.showInfoView = true
+                        } label: {
+                            Image(systemName: "info.circle")
+                                .resizable()
+                                .foregroundColor(.secondary)
+                                .opacity(0.5)
+                                .frame(width: UIScreen.main.bounds.width * 0.06,
+                                       height: UIScreen.main.bounds.width * 0.06,
+                                       alignment: .center)
+                                .padding()
+                        }
+                        .padding(.top)
                     }
-                    .padding(.vertical)
+                    CanvasView(ghostDrawingVM: viewModel)
+                        .padding([.leading, .bottom, .trailing])
                     Spacer()
                     // Color selection tool at the bottom of the view.
                     ColorSelector(viewModel: viewModel)
