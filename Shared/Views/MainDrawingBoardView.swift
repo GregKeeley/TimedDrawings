@@ -39,9 +39,23 @@ struct MainDrawingBoardView: View {
                             .foregroundColor(.secondary)
                             .hidden(!(viewModel.clearButtonTapsInARow >= 6))
                         Spacer()
+                        Button {
+                            // Show info view here.
+                            
+                        } label: {
+                            Image(systemName: "info.circle")
+                                .resizable()
+                                .foregroundColor(.secondary)
+                                .opacity(0.5)
+                                .frame(width: UIScreen.main.bounds.width * 0.06,
+                                       height: UIScreen.main.bounds.width * 0.06,
+                                       alignment: .center)
+                                .padding()
+                        }
+                        .padding(.top)
                     }
                     CanvasView(ghostDrawingVM: viewModel)
-                        .padding()
+                        .padding([.leading, .bottom, .trailing])
                     Spacer()
                     // Color selection tool at the bottom of the view.
                     ColorSelector(viewModel: viewModel)
