@@ -26,6 +26,8 @@ class DrawingViewModel: ObservableObject {
     var touchEventEnded = false
     /// Tracks how many times in a row the clear/eraser button has been tapped. Tapping it 6 times or more in a row will enable the toggle for the delay timer.
     @Published var clearButtonTapsInARow: Int = 0
+    /// Determines if the information view is shown. Set to `true` when you want to display the info view.
+    @Published var showInfoView = false
     // MARK: - Public Functions
     /// Checks the current color and that the drag gesture has ended and immediately adds the point to the drawing.
     /// Once the points have been added to the drawing, the drawing is added to the main collection.

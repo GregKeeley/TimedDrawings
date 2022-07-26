@@ -17,6 +17,10 @@ struct MainDrawingBoardView: View {
      
     var body: some View {
         ZStack {
+            InfoView(showInfoView: $viewModel.showInfoView)
+                .sheet(isPresented: $viewModel.showInfoView) {
+                    InfoView(showInfoView: $viewModel.showInfoView)
+                }
             // Change background color based on the users preference for dark/light mode on their phone.
             colorScheme == .dark ? Color.black.ignoresSafeArea() : Color.white.ignoresSafeArea()
             // Canvas drawing board.
@@ -41,7 +45,7 @@ struct MainDrawingBoardView: View {
                         Spacer()
                         Button {
                             // Show info view here.
-                            
+                            viewModel.showInfoView = true
                         } label: {
                             Image(systemName: "info.circle")
                                 .resizable()
