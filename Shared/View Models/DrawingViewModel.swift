@@ -32,6 +32,25 @@ class DrawingViewModel: ObservableObject {
     public func addPointToDrawing(point: CGPoint) {
         switch currentColor {
             case .red:
+                self.currentRedDrawing.points.append(point)
+                self.allDrawings.append(self.currentRedDrawing)
+            case .blue:
+                self.currentBlueDrawing.points.append(point)
+                self.allDrawings.append(self.currentBlueDrawing)
+            case .green:
+                self.currentGreenDrawing.points.append(point)
+                self.allDrawings.append(self.currentGreenDrawing)
+            default:
+                currentEraserDrawing.points.append(point)
+                self.allDrawings.append(self.currentEraserDrawing)
+        }
+    }
+    /// Checks the current color; Time delay is enabled; Touch events ended, to start adding the points to the respective color drawing.
+    /// Once the points have been added to the drawing, add the drawing to the main collection. The eraser has no time delay.
+    /// - Parameter point: The new point to the drawing.
+    public func addPointToDrawingWithDelay(point: CGPoint) {
+        switch currentColor {
+            case .red:
                 let timer = Timer.scheduledTimer(withTimeInterval: delayIsActive ? 1.0 : 0.0, repeats: false) { _ in
                     if self.touchEventEnded {
                         self.currentRedDrawing.points.append(point)

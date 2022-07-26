@@ -27,7 +27,7 @@ struct CanvasView: View {
                 }
             }
             .gesture(
-                DragGesture(minimumDistance: 0)
+                DragGesture(minimumDistance: 0, coordinateSpace: .local)
                     .onChanged({ value in
                         if ghostDrawingVM.delayIsActive {
                             ghostDrawingVM.touchEventEnded = false
@@ -37,7 +37,11 @@ struct CanvasView: View {
                         // Get the CGPoint from the drag gesture location.
                         let newPoint = value.location
                         // Check if the timer is enabled; Delay path from being created, based on the current color.
-                        ghostDrawingVM.addPointToDrawing(point: newPoint)
+                        if ghostDrawingVM.delayIsActive {
+                            ghostDrawingVM.addPointToDrawingWithDelay(point: newPoint)
+                        } else {
+                            ghostDrawingVM.addPointToDrawing(point: newPoint)
+                        }
                     })
                     .onEnded({ value in
                         // Drag gesture ended; Add current drawing to collection; Reinitialize the next drawing.
