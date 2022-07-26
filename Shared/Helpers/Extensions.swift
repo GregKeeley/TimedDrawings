@@ -25,7 +25,18 @@ extension View {
     func onShake(perform action: @escaping () -> Void) -> some View {
         self.modifier(DeviceShakeViewModifier(action: action))
     }
-    
+    /// Hides this view conditionally.
+    @inlinable
+    public func hidden(_ isHidden: Bool) -> some View {
+        Group {
+            if isHidden {
+                hidden()
+            } else {
+                self
+            }
+        }
+    }
+
 }
 
 

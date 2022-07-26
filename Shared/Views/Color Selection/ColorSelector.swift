@@ -14,10 +14,10 @@ struct ColorSelector: View {
     var body: some View {
         GeometryReader { geo in
             HStack {
-                ColorSelectionButton(color: .red, currentColor: $viewModel.currentColor)
-                ColorSelectionButton(color: .blue, currentColor: $viewModel.currentColor)
-                ColorSelectionButton(color: .green, currentColor: $viewModel.currentColor)
-                ColorSelectionButton(color: .clear, currentColor: $viewModel.currentColor)
+                ColorSelectionButton(color: .red, currentColor: $viewModel.currentColor, clearButtonTapsInARow: $viewModel.clearButtonTapsInARow)
+                ColorSelectionButton(color: .blue, currentColor: $viewModel.currentColor, clearButtonTapsInARow: $viewModel.clearButtonTapsInARow)
+                ColorSelectionButton(color: .green, currentColor: $viewModel.currentColor, clearButtonTapsInARow: $viewModel.clearButtonTapsInARow)
+                ColorSelectionButton(color: .clear, currentColor: $viewModel.currentColor, clearButtonTapsInARow: $viewModel.clearButtonTapsInARow)
             }
             .position(x: geo.size.width * 0.525, y: geo.size.width * 0.157)
             .overlay(

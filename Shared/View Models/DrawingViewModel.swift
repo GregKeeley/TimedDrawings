@@ -21,10 +21,11 @@ class DrawingViewModel: ObservableObject {
     /// Stores the line width of the line for the drawing.
     @Published public var currentLineWidth: CGFloat = 3.0
     /// Determines if the time delay is on. Set to `true` when you want a time delay on the drawings; `false` for no time delay.
-    @Published public var delayIsActive: Bool = false
+    @Published public var delayIsActive: Bool = true
     /// Determines if the user has ended the drag gesture. When the time delay is enabled, this is needed to know when to start the timers at the end of the drag gesture.
     var touchEventEnded = false
-    
+    /// Tracks how many times in a row the clear/eraser button has been tapped. Tapping it 6 times or more in a row will enable the toggle for the delay timer.
+    @Published var clearButtonTapsInARow: Int = 0
     // MARK: - Public Functions
     /// Checks the current color and that the drag gesture has ended and immediately adds the point to the drawing.
     /// Once the points have been added to the drawing, the drawing is added to the main collection.
